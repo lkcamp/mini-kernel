@@ -1,0 +1,10 @@
+add_project_arguments(['-Wall', '-Wextra', '-ffreestanding', '-nostdlib'], language : 'c')
+
+sources = ['kernel.c', 'entry.S']
+
+kernel_img = executable('kernel.elf',
+  sources,
+  c_args: ['-ffreestanding', '-nostdlib'],
+  link_args : ['-T' + linker_script],
+  link_depends: [linker_script],
+)
