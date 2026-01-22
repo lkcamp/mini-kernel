@@ -7,12 +7,12 @@ Placeholder name, we have no creativity
 ### Ubuntu/Debian
 
 ```
-sudo apt install qemu-system-riscv gdb-multiarch clang meson ninja
+sudo apt install qemu-system-riscv gdb-multiarch clang meson ninja-build
 ```
 
 ### Arch Linux
 ```
-sudo pacman -S qemu-full riscv64-elf-gdb clang meson ninja-build
+sudo pacman -S qemu-full riscv64-elf-gdb clang meson ninja
 ```
 
 ### Fedora
