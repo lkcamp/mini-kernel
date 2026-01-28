@@ -1,4 +1,4 @@
-add_project_arguments(['-Wall', '-Wextra', '-ffreestanding', '-nostdlib'], language : 'c')
+add_project_arguments(['-Wall', '-Wextra', '-Wconversion', '-ffreestanding', '-nostdlib'], language : 'c')
 
 sources = ['kernel.c', 'entry.S', 'csr.S', 'printf.c']
 
