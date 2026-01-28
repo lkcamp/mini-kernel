@@ -7,4 +7,5 @@ kernel_img = executable('kernel.elf',
   c_args: ['-ffreestanding', '-nostdlib'],
   link_args : ['-T' + linker_script],
   link_depends: [linker_script],
+  include_directories: kernel_include_dir,
 )
