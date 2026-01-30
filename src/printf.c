@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <kernel/printf.h>
 
+#include <stdint.h>
+
 // TODO: we need to implement some sort of locking/buffering mechanism
 // in order to avoid interleaved prints across harts. we will purposefully
 // ignore this for now
@@ -24,8 +26,14 @@ void print(const char *str)
 }
 
 static char *digits = "0123456789abcdef";
-static char *number(char *str, size_t size, int number, int base)
+// FIXME: this needs to read signed integers as well
+static char *number(char *str, size_t size, uint64_t number, uint64_t base)
 {
+	if (number == 0) {
+		*str++ = '0';
+		return str;
+	}
+
 	// this is taken from linux's implementation.
 	// haven't really looked into the reasoning for
 	// choosing 3 specifically
@@ -36,7 +44,7 @@ static char *number(char *str, size_t size, int number, int base)
 		number /= base;
 	}
 
-	while (i-- > 0) {
+	while (i-- > 0 && --size > 0) {
 		*str++ = tmp[i];
 	}
 
@@ -77,11 +85,11 @@ static void vsnprintf(char *buf, size_t size, const char *fmt_str, va_list args)
 		case FMT_STATE_PERCENTAGE: {
 			if (*fmt.str == 'd') {
 				fmt.str++;
-				int n = va_arg(args, int);
+				uint64_t n = va_arg(args, uint64_t);
 				str = number(str, size, n, 10);
 			} else if (*fmt.str == 'x') {
 				fmt.str++;
-				int n = va_arg(args, int);
+				uint64_t n = va_arg(args, uint64_t);
 				str = number(str, size, n, 16);
 			}
 			fmt.state = FMT_STATE_NONE;
