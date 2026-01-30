@@ -1,6 +1,6 @@
 add_project_arguments(['-Wall', '-Wextra', '-Wconversion', '-ffreestanding', '-nostdlib'], language : 'c')
 
-sources = ['kernel.c', 'entry.S', 'csr.S', 'printf.c']
+sources = ['kernel.c', 'entry.S', 'printf.c']
 
 kernel_img = executable('kernel.elf',
   sources,
